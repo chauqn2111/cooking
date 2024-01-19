@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\84988\\Desktop\\Test\\CookingWebsite_30_12_2023\\CookingWebsite_29_12_2023\\ProjectLibrary\\ProjectLibrary.csproj": {}
+    "C:\\Users\\tranv\\OneDrive\\Desktop\\New folder (3)\\CookingWebsite\\ProjectLibrary\\ProjectLibrary.csproj": {}
   },
   "projects": {
-    "C:\\Users\\84988\\Desktop\\Test\\CookingWebsite_30_12_2023\\CookingWebsite_29_12_2023\\ProjectLibrary\\ProjectLibrary.csproj": {
+    "C:\\Users\\tranv\\OneDrive\\Desktop\\New folder (3)\\CookingWebsite\\ProjectLibrary\\ProjectLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\84988\\Desktop\\Test\\CookingWebsite_30_12_2023\\CookingWebsite_29_12_2023\\ProjectLibrary\\ProjectLibrary.csproj",
+        "projectUniqueName": "C:\\Users\\tranv\\OneDrive\\Desktop\\New folder (3)\\CookingWebsite\\ProjectLibrary\\ProjectLibrary.csproj",
         "projectName": "ProjectLibrary",
-        "projectPath": "C:\\Users\\84988\\Desktop\\Test\\CookingWebsite_30_12_2023\\CookingWebsite_29_12_2023\\ProjectLibrary\\ProjectLibrary.csproj",
-        "packagesPath": "C:\\Users\\84988\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\84988\\Desktop\\Test\\CookingWebsite_30_12_2023\\CookingWebsite_29_12_2023\\ProjectLibrary\\obj\\",
+        "projectPath": "C:\\Users\\tranv\\OneDrive\\Desktop\\New folder (3)\\CookingWebsite\\ProjectLibrary\\ProjectLibrary.csproj",
+        "packagesPath": "C:\\Users\\tranv\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tranv\\OneDrive\\Desktop\\New folder (3)\\CookingWebsite\\ProjectLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\84988\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tranv\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -85,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

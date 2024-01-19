@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ProjectLibrary
-build_property.ProjectDir = C:\Users\84988\Desktop\Test\CookingWebsite_30_12_2023\CookingWebsite_29_12_2023\ProjectLibrary\
+build_property.ProjectDir = C:\Users\tranv\OneDrive\Desktop\New folder (3)\CookingWebsite\ProjectLibrary\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
