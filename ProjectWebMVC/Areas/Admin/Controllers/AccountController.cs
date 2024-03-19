@@ -206,6 +206,7 @@ namespace ProjectWebMVC.Areas.Admin.Controllers
 
                     // Lưu thông báo lỗi vào TempData
                     ViewData["ErrorMessage"] = errorData;
+                    TempData.Keep("ErrorMessage");
 
                     // Redirect về view NotificationEmailConfirm
                     return View("Register");

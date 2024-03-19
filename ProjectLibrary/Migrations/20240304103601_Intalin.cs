@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProjectLibrary.Migrations
 {
     /// <inheritdoc />
-    public partial class initialdb : Migration
+    public partial class Intalin : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -162,6 +162,26 @@ namespace ProjectLibrary.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserPaymentHistories",
+                columns: table => new
+                {
+                    PaymentHistoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TransactionRef = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserPaymentHistories", x => x.PaymentHistoryId);
+                    table.ForeignKey(
+                        name: "FK_UserPaymentHistories_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserRegHistory",
                 columns: table => new
                 {
@@ -236,33 +256,6 @@ namespace ProjectLibrary.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WinnerInfo",
-                columns: table => new
-                {
-                    WinnerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ContestId = table.Column<int>(type: "int", nullable: true),
-                    WinnerUserId = table.Column<int>(type: "int", nullable: true),
-                    WinningDate = table.Column<DateTime>(type: "datetime", nullable: true),
-                    Prize = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Vote = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__WinnerIn__8A3D1DA89A7B71C7", x => x.WinnerId);
-                    table.ForeignKey(
-                        name: "FK__WinnerInf__Conte__6B24EA82",
-                        column: x => x.ContestId,
-                        principalTable: "Contests",
-                        principalColumn: "ContestId");
-                    table.ForeignKey(
-                        name: "FK__WinnerInf__Winne__6C190EBB",
-                        column: x => x.WinnerUserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Comment",
                 columns: table => new
                 {
@@ -315,12 +308,19 @@ namespace ProjectLibrary.Migrations
                     RatingId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: true),
+                    ContestId = table.Column<int>(type: "int", nullable: true),
                     RecipeId = table.Column<int>(type: "int", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Vote = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK__Ratings__FCCDF87CA929BC9E", x => x.RatingId);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Contests_ContestId",
+                        column: x => x.ContestId,
+                        principalTable: "Contests",
+                        principalColumn: "ContestId");
                     table.ForeignKey(
                         name: "FK_Ratings_Recipes",
                         column: x => x.RecipeId,
@@ -340,7 +340,6 @@ namespace ProjectLibrary.Migrations
                     Step = table.Column<int>(type: "int", nullable: false),
                     RecipeId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageURL = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     VideoURL = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
@@ -352,6 +351,39 @@ namespace ProjectLibrary.Migrations
                         principalTable: "Recipes",
                         principalColumn: "RecipeId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WinnerInfo",
+                columns: table => new
+                {
+                    WinnerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ContestId = table.Column<int>(type: "int", nullable: true),
+                    RecipeId = table.Column<int>(type: "int", nullable: true),
+                    WinnerUserId = table.Column<int>(type: "int", nullable: true),
+                    WinningDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    Prize = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Vote = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__WinnerIn__8A3D1DA89A7B71C7", x => x.WinnerId);
+                    table.ForeignKey(
+                        name: "FK_WinnerInfo_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
+                        principalColumn: "RecipeId");
+                    table.ForeignKey(
+                        name: "FK__WinnerInf__Conte__6B24EA82",
+                        column: x => x.ContestId,
+                        principalTable: "Contests",
+                        principalColumn: "ContestId");
+                    table.ForeignKey(
+                        name: "FK__WinnerInf__Winne__6C190EBB",
+                        column: x => x.WinnerUserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateIndex(
@@ -370,12 +402,6 @@ namespace ProjectLibrary.Migrations
                 column: "OwnerUserId");
 
             migrationBuilder.CreateIndex(
-                name: "UC_ContestDates",
-                table: "Contests",
-                columns: new[] { "StartTime", "EndTime" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Ingredients_Group_RecipeId",
                 table: "Ingredients_Group",
                 column: "RecipeId");
@@ -384,6 +410,11 @@ namespace ProjectLibrary.Migrations
                 name: "IX_Notification_UserID",
                 table: "Notification",
                 column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ratings_ContestId",
+                table: "Ratings",
+                column: "ContestId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ratings_RecipeId",
@@ -437,6 +468,11 @@ namespace ProjectLibrary.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserPaymentHistories_UserId",
+                table: "UserPaymentHistories",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserRegHistory_UserId",
                 table: "UserRegHistory",
                 column: "UserId");
@@ -462,6 +498,11 @@ namespace ProjectLibrary.Migrations
                 name: "IX_WinnerInfo_ContestId",
                 table: "WinnerInfo",
                 column: "ContestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WinnerInfo_RecipeId",
+                table: "WinnerInfo",
+                column: "RecipeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WinnerInfo_WinnerUserId",
@@ -492,6 +533,9 @@ namespace ProjectLibrary.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserDetail");
+
+            migrationBuilder.DropTable(
+                name: "UserPaymentHistories");
 
             migrationBuilder.DropTable(
                 name: "UserRegHistory");

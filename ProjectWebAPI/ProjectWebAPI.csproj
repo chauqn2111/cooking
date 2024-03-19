@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <Reference Include="Logger">
-      <HintPath>C:\Users\84988\Desktop\Test\CookingWebsite_30_12_2023\CookingWebsite_29_12_2023\ProjectWebMVC\bin\Debug\net7.0\Logger.dll</HintPath>
+      <HintPath>C:\Users\tranv\OneDrive\Desktop\New folder (3)\CookingWebsite\ProjectWebAPI\bin\Debug\net7.0\Logger.dll</HintPath>
     </Reference>
   </ItemGroup>
 

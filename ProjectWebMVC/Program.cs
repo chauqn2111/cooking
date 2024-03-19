@@ -23,7 +23,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 });
 builder.Services.AddDbContext<CookingWebsiteContext>(options =>
 {
-    options.UseSqlServer("server=VINHBEOO\\SQLEXPRESS; uid=; pwd=; Database=CookingWebsiteDB1;TrustServerCertificate=true;Trusted_Connection=SSPI;Encrypt=false;");
+    options.UseSqlServer("Data Source=DESKTOP-B0D0J2Q\\CHAU92;Initial Catalog=CookingWebsiteDb3;Persist Security Info=True;User ID=sa;Password=chau840848;TrustServerCertificate=true;Trusted_Connection=SSPI;Encrypt=false;");
 });
 
 

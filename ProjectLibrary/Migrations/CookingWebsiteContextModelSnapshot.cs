@@ -103,9 +103,6 @@ namespace ProjectLibrary.Migrations
 
                     b.HasIndex("OwnerUserId");
 
-                    b.HasIndex(new[] { "StartTime", "EndTime" }, "UC_ContestDates")
-                        .IsUnique();
-
                     b.ToTable("Contests");
                 });
 
@@ -173,6 +170,12 @@ namespace ProjectLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RatingId"));
 
+                    b.Property<int?>("ContestId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("RecipeId")
                         .HasColumnType("int");
 
@@ -184,6 +187,8 @@ namespace ProjectLibrary.Migrations
 
                     b.HasKey("RatingId")
                         .HasName("PK__Ratings__FCCDF87CA929BC9E");
+
+                    b.HasIndex("ContestId");
 
                     b.HasIndex("RecipeId");
 
@@ -300,11 +305,6 @@ namespace ProjectLibrary.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("ImageURL");
 
                     b.Property<string>("VideoUrl")
                         .HasMaxLength(255)
@@ -473,6 +473,28 @@ namespace ProjectLibrary.Migrations
                     b.ToTable("UserDetail", (string)null);
                 });
 
+            modelBuilder.Entity("ProjectLibrary.ObjectBussiness.UserPaymentHistory", b =>
+                {
+                    b.Property<int>("PaymentHistoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentHistoryId"));
+
+                    b.Property<string>("TransactionRef")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PaymentHistoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserPaymentHistories");
+                });
+
             modelBuilder.Entity("ProjectLibrary.ObjectBussiness.UserRegHistory", b =>
                 {
                     b.Property<int>("RegistrationId")
@@ -522,6 +544,9 @@ namespace ProjectLibrary.Migrations
                     b.Property<string>("Prize")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RecipeId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Vote")
                         .HasColumnType("int");
 
@@ -535,6 +560,8 @@ namespace ProjectLibrary.Migrations
                         .HasName("PK__WinnerIn__8A3D1DA89A7B71C7");
 
                     b.HasIndex("ContestId");
+
+                    b.HasIndex("RecipeId");
 
                     b.HasIndex("WinnerUserId");
 
@@ -596,6 +623,10 @@ namespace ProjectLibrary.Migrations
 
             modelBuilder.Entity("ProjectLibrary.ObjectBussiness.Rating", b =>
                 {
+                    b.HasOne("ProjectLibrary.ObjectBussiness.Contest", "Contest")
+                        .WithMany()
+                        .HasForeignKey("ContestId");
+
                     b.HasOne("ProjectLibrary.ObjectBussiness.Recipe", "Recipe")
                         .WithMany("Ratings")
                         .HasForeignKey("RecipeId")
@@ -605,6 +636,8 @@ namespace ProjectLibrary.Migrations
                         .WithMany("Ratings")
                         .HasForeignKey("UserId")
                         .HasConstraintName("FK__Ratings__UserId__6754599E");
+
+                    b.Navigation("Contest");
 
                     b.Navigation("Recipe");
 
@@ -689,6 +722,17 @@ namespace ProjectLibrary.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ProjectLibrary.ObjectBussiness.UserPaymentHistory", b =>
+                {
+                    b.HasOne("ProjectLibrary.ObjectBussiness.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ProjectLibrary.ObjectBussiness.UserRegHistory", b =>
                 {
                     b.HasOne("ProjectLibrary.ObjectBussiness.User", "User")
@@ -706,12 +750,18 @@ namespace ProjectLibrary.Migrations
                         .HasForeignKey("ContestId")
                         .HasConstraintName("FK__WinnerInf__Conte__6B24EA82");
 
+                    b.HasOne("ProjectLibrary.ObjectBussiness.Recipe", "Recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId");
+
                     b.HasOne("ProjectLibrary.ObjectBussiness.User", "WinnerUser")
                         .WithMany("WinnerInfos")
                         .HasForeignKey("WinnerUserId")
                         .HasConstraintName("FK__WinnerInf__Winne__6C190EBB");
 
                     b.Navigation("Contest");
+
+                    b.Navigation("Recipe");
 
                     b.Navigation("WinnerUser");
                 });

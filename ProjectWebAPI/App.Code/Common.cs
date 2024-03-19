@@ -1,4 +1,8 @@
-﻿using Logger;
+﻿/*using Logger;*/
+
+using Logger;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ProjectWebMVC.Areas.App.Code
 {
@@ -11,22 +15,35 @@ namespace ProjectWebMVC.Areas.App.Code
         /// </summary>
         public static string EncryptMD5(string sToEncrypt)
         {
-            System.Text.UTF8Encoding ue = new System.Text.UTF8Encoding();
-            byte[] bytes = ue.GetBytes(sToEncrypt);
+            //System.Text.UTF8Encoding ue = new System.Text.UTF8Encoding();
+            //byte[] bytes = ue.GetBytes(sToEncrypt);
 
-            // encrypt bytes
-            System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
-            byte[] hashBytes = md5.ComputeHash(bytes);
+            //// encrypt bytes
+            //System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+            //byte[] hashBytes = md5.ComputeHash(bytes);
 
-            // Convert the encrypted bytes back to a string (base 16)
-            string hashString = "";
+            //// Convert the encrypted bytes back to a string (base 16)
+            //string hashString = "";
 
-            for (int i = 0; i < hashBytes.Length; i++)
+            //for (int i = 0; i < hashBytes.Length; i++)
+            //{
+            //    hashString += Convert.ToString(hashBytes[i], 16).PadLeft(2, '0');
+            //}
+
+            //return hashString.PadLeft(32, '0');
+            using (MD5 md5 = MD5.Create())
             {
-                hashString += Convert.ToString(hashBytes[i], 16).PadLeft(2, '0');
-            }
+                byte[] inputBytes = Encoding.UTF8.GetBytes(sToEncrypt);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
 
-            return hashString.PadLeft(32, '0');
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    sb.Append(hashBytes[i].ToString("x2"));
+                }
+
+                return sb.ToString();
+            }
         }
 
         /// <summary>
